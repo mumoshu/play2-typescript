@@ -21,11 +21,23 @@ In your Play application folder, add
 
     resolvers += "Sonatype OSS Snapshots Repository" at "http://oss.sonatype.org/content/groups/public"
 
-    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.1.0-SNAPSHOT")
+    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.1.1-SNAPSHOT")
 
 to `project/plugins.sbt`.
 
 The plugin automatically registers for compilation of `app/assets/**/*.ts`, that is all stylus files in your `app/assets` directory.
+
+You may also want to import/export modules or classes across multiple .ts files, enable Google Closure Compiler in your project/Build.scala:
+
+```
+val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
+    // Enable Google Closure Compiler to enable `require()` function utilized by TypeScript to enable importing modules at runtime.
+    javascriptEntryPoints <<= baseDirectory(base =>
+      base / "app" / "assets" ** "*.js"
+    )
+  )
+)
+```
 
 sbt settings
 ------------

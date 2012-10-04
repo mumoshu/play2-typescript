@@ -11,13 +11,20 @@ object TypeScriptCompiler {
   def compile(tsFile: File, options: Seq[String]): (String, Option[String], Seq[File]) = {
     try {
       val parentPath = tsFile.getParentFile.getAbsolutePath
+      val writeDeclarations = Path(tsFile).slurpString.contains("module")
+      val writeDeclarationsOptions = if (writeDeclarations)
+        Seq("--declarations") else Seq.empty
       val tscOutput = runCompiler(
-        Seq("tsc") ++ options ++ Seq(tsFile.getAbsolutePath)
+        Seq("tsc") ++ options ++ writeDeclarationsOptions ++ Seq(tsFile.getAbsolutePath)
       )
 
       val tsOutput = Path.fromString(tsFile.getAbsolutePath.replace("\\.ts$", ".js")).slurpString
 
-      (tsOutput, None, List(tsFile) )
+      val declarationsFiles = if (writeDeclarations)
+        List(new File(tsFile.getAbsolutePath.replace("\\.ts$", ".d.ts")))
+      else Nil
+
+      (tsOutput, None, List(tsFile) ++ declarationsFiles )
     } catch {
       case e: TypeScriptCompilationException => {
         throw AssetCompilationException(e.file.orElse(Some(tsFile)), "TypeScript compiler: " + e.message, e.line, e.column)

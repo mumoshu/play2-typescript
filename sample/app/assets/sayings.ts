@@ -1,4 +1,4 @@
-module exports {
+export module sayings_module {
     export class Greeter {
         greeting: string;
         constructor (message: string) {

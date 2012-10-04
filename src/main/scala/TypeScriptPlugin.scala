@@ -21,7 +21,7 @@ object TypeScriptPlugin extends Plugin {
     )
 
     override val settings = Seq(
-        tsEntryPoints <<= (sourceDirectory in Compile)(base => ((base / "assets" ** "*.ts") --- base / "assets" ** "_*")),
+        tsEntryPoints <<= (sourceDirectory in Compile)(base => ((base / "assets" ** "*.ts") --- (base / "assets" ** "_*") --- (base / "assets" ** "*.d.ts"))),
         tsOptions := Seq.empty[String],
         resourceGenerators in Compile <+= tsWatcher
     )

@@ -1,11 +1,5 @@
-declare module "./sayings" {
-    export class Greeter {
-        public greeting: string;
-        constructor (message: string);
-        public greet(): string;
-    }
-}
 
-import Sayings = module("./sayings");
-var greeter = new Sayings.Greeter("world");
+import sayings = module("./sayings")
+
+var greeter = new sayings.sayings_module.Greeter("world");
 document.body.innerHTML = greeter.greet();
