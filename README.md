@@ -49,3 +49,7 @@ Apache v2 licensing, for details see file LICENSE.
 [1]: http://www.typescriptlang.org/
 [2]: http://www.playframework.org/
 [3]: https://github.com/harrah/xsbt
+
+## Build status
+
+[![Build Status](https://secure.travis-ci.org/mumoshu/play2-typescript.png)](http://travis-ci.org/mumoshu/play2-typescript)
