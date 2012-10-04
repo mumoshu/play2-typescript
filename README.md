@@ -31,7 +31,7 @@ sbt settings
 ------------
 
   - `compile:resource-generators`: The typescript file watcher is being added here
-  - `play-typescript-entry-points`: All files matching `app/assets/**/*.styl`, except files starting in an underscore
+  - `play-typescript-entry-points`: All files matching `app/assets/**/*.ts`, except files starting in an underscore
   - `play-typescript-options`: A sequence of strings passed to stylus as command-line flags
 
 Acknowledgements
