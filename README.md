@@ -25,16 +25,14 @@ In your Play application folder, add
 
 to `project/plugins.sbt`.
 
-The plugin automatically registers for compilation of `app/assets/**/*.ts`, that is all stylus files in your `app/assets` directory.
+The plugin automatically registers for compilation of `app/assets/**/*.ts`, that is all typescript files in your `app/assets` directory.
 
 You may also want to import/export modules or classes across multiple .ts files, enable Google Closure Compiler in your project/Build.scala:
 
 ```
 val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
     // Enable Google Closure Compiler to enable `require()` function utilized by TypeScript to enable importing modules at runtime.
-    javascriptEntryPoints <<= baseDirectory(base =>
-      base / "app" / "assets" ** "*.js"
-    )
+    javascriptEntryPoints <<= baseDirectory(base => base / "app" / "assets" ** "*.js")
   )
 )
 ```
@@ -44,7 +42,7 @@ sbt settings
 
   - `compile:resource-generators`: The typescript file watcher is being added here
   - `play-typescript-entry-points`: All files matching `app/assets/**/*.ts`, except files starting in an underscore
-  - `play-typescript-options`: A sequence of strings passed to stylus as command-line flags
+  - `play-typescript-options`: A sequence of strings passed to typescript as command-line flags
 
 Acknowledgements
 ----------------
