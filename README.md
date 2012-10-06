@@ -32,7 +32,7 @@ You may also want to import/export modules or classes across multiple .ts files,
 ```
 val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
     // Enable Google Closure Compiler to enable `require()` function utilized by TypeScript to enable importing modules at runtime.
-    closureCompilerOptions <<= baseDirectory(base => base / "app" / "assets" ** "*.js")
+    javascriptEntryPoints <<= baseDirectory(base => base / "app" / "assets" ** "*.js")
   )
 )
 ```
