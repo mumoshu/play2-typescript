@@ -14,8 +14,12 @@ object TypeScriptCompiler {
       val writeDeclarations = Path(tsFile).slurpString.contains("module")
       val writeDeclarationsOptions = if (writeDeclarations)
         Seq("--declarations") else Seq.empty
+      val cmd = if (System.getProperty("os.name").startsWith("Windows"))
+        Seq("cmd", "/C", "tsc")
+      else
+        Seq("tsc")
       val tscOutput = runCompiler(
-        Seq("tsc") ++ options ++ writeDeclarationsOptions ++ Seq(tsFile.getAbsolutePath)
+        cmd ++ options ++ writeDeclarationsOptions ++ Seq(tsFile.getAbsolutePath)
       )
 
       val tsOutput = Path.fromString(tsFile.getAbsolutePath.replace("\\.ts$", ".js")).slurpString
