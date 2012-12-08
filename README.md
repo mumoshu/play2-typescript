@@ -21,7 +21,7 @@ In your Play application folder, add
 
     resolvers += "Sonatype OSS Snapshots Repository" at "http://oss.sonatype.org/content/groups/public"
 
-    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.1.1-SNAPSHOT")
+    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.1.2-SNAPSHOT")
 
 to `project/plugins.sbt`.
 
