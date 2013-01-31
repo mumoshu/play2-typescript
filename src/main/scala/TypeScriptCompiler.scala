@@ -6,12 +6,13 @@ import scala.sys.process._
 import sbt.IO
 import io.Source._
 import scalax.file.Path
+import scalax.io.JavaConverters._
 
 object TypeScriptCompiler {
   def compile(tsFile: File, options: Seq[String]): (String, Option[String], Seq[File]) = {
     try {
       val parentPath = tsFile.getParentFile.getAbsolutePath
-      val writeDeclarations = Path(tsFile).slurpString.contains("module")
+      val writeDeclarations = Path(tsFile).string.contains("module")
       val writeDeclarationsOptions = if (writeDeclarations)
         Seq("--declarations") else Seq.empty
       val cmd = if (System.getProperty("os.name").startsWith("Windows"))
@@ -22,7 +23,7 @@ object TypeScriptCompiler {
         cmd ++ options ++ writeDeclarationsOptions ++ Seq(tsFile.getAbsolutePath)
       )
 
-      val tsOutput = Path.fromString(tsFile.getAbsolutePath.replace("\\.ts$", ".js")).slurpString
+      val tsOutput = Path.fromString(tsFile.getAbsolutePath.replace("\\.ts$", ".js")).string
 
       val declarationsFiles = if (writeDeclarations)
         List(new File(tsFile.getAbsolutePath.replace("\\.ts$", ".d.ts")))
@@ -31,7 +32,7 @@ object TypeScriptCompiler {
       (tsOutput, None, List(tsFile) ++ declarationsFiles )
     } catch {
       case e: TypeScriptCompilationException => {
-        throw AssetCompilationException(e.file.orElse(Some(tsFile)), "TypeScript compiler: " + e.message, e.line, e.column)
+        throw AssetCompilationException(e.file.orElse(Some(tsFile)), "TypeScript compiler: " + e.message, Some(e.line), Some(e.column))
       }
     }
   }
