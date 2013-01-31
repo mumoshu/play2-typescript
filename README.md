@@ -30,7 +30,7 @@ The plugin automatically registers for compilation of `app/assets/**/*.ts`, that
 You may also want to import/export modules or classes across multiple .ts files, enable Google Closure Compiler in your project/Build.scala:
 
 ```
-val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
+val main = play.Project(appName, appVersion, appDependencies).settings(
     // Enable Google Closure Compiler to enable `require()` function utilized by TypeScript to enable importing modules at runtime.
     javascriptEntryPoints <<= baseDirectory(base => base / "app" / "assets" ** "*.js")
   )
