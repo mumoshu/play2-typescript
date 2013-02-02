@@ -1,7 +1,7 @@
 play2-typescript
 ===========
 
-[TypeScript] [1] asset handling for [Play 2.0] [2], implemented as an [sbt] [3]
+[TypeScript] [1] asset handling for [Play 2.1-RC4] [2], implemented as an [sbt] [3]
 plugin (very similar to Play's handling of CoffeeScript and LESS).
 
 Prerequisites
@@ -21,7 +21,7 @@ In your Play application folder, add
 
     resolvers += "Sonatype OSS Snapshots Repository" at "http://oss.sonatype.org/content/groups/public"
 
-    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.2-RC1-SNAPSHOT")
+    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.2-RC2")
 
 to `project/plugins.sbt`.
 

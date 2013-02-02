@@ -14,9 +14,9 @@ object PluginBuild extends Build {
       //"play" %% "play" % "2.0.3",
       "org.scalatest" %% "scalatest" % "1.9.1" % "test"
     ),
-    addSbtPlugin("play" % "sbt-plugin" % "2.1-RC3"),
+    addSbtPlugin("play" % "sbt-plugin" % "2.1-RC4"),
     organization := "com.github.mumoshu",
-    version := "0.2-RC1",
+    version := "0.2-RC2",
     publishTo <<= version { v: String =>
       val nexus = "https://oss.sonatype.org/"
       if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
