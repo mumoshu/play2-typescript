@@ -52,7 +52,7 @@ This plugin is based on Juha Litola's [play-sass][play-sass] plugin for handling
 License
 -------
 
-Copyright (c) 2012 KUOKA Yusuke
+Copyright (c) 2013 KUOKA Yusuke
 
 Apache v2 licensing, for details see file LICENSE.
 
