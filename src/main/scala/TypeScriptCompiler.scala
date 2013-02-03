@@ -2,6 +2,7 @@ package net.litola
 
 import sbt.PlayExceptions.AssetCompilationException
 import java.io.File
+import scala.collection.JavaConverters._
 import scala.sys.process._
 import sbt.IO
 import io.Source._
@@ -43,7 +44,7 @@ object TypeScriptCompiler {
    * @param command
    * @return Compiler's stdout
    */
-  private def runCompiler(command: ProcessBuilder): String = {
+  private def runCompiler(command: Seq[String]): String = {
     val err = new StringBuilder
     val out = new StringBuilder
 
@@ -51,7 +52,7 @@ object TypeScriptCompiler {
       (output: String) => out.append(output + "\n"),
       (error: String) => err.append(error + "\n"))
 
-    val process = command.run(capturer)
+    val process = Process(command, None, System.getenv().asScala.toSeq:_*).run(capturer)
     if (process.exitValue == 0) {
       out.mkString
     } else

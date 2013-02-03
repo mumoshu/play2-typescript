@@ -16,7 +16,7 @@ object PluginBuild extends Build {
     ),
     addSbtPlugin("play" % "sbt-plugin" % "2.0.3"),
     organization := "com.github.mumoshu",
-    version := "0.1.2-SNAPSHOT",
+    version := "0.1.3-SNAPSHOT",
     publishTo <<= version { v: String =>
       val nexus = "https://oss.sonatype.org/"
       if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")

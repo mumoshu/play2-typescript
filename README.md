@@ -21,7 +21,7 @@ In your Play application folder, add
 
     resolvers += "Sonatype OSS Snapshots Repository" at "http://oss.sonatype.org/content/groups/public"
 
-    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.1.2-SNAPSHOT")
+    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.1.3-SNAPSHOT")
 
 to `project/plugins.sbt`.
 
@@ -43,6 +43,12 @@ sbt settings
   - `compile:resource-generators`: The typescript file watcher is being added here
   - `play-typescript-entry-points`: All files matching `app/assets/**/*.ts`, except files starting in an underscore
   - `play-typescript-options`: A sequence of strings passed to typescript as command-line flags
+
+
+Version History
+---------------
+
+0.1.3-SNAPSHOT Fixed #7
 
 Acknowledgements
 ----------------
