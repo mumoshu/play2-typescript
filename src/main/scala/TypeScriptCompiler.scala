@@ -23,7 +23,9 @@ object TypeScriptCompiler {
         cmd ++ options ++ writeDeclarationsOptions ++ Seq(tsFile.getAbsolutePath)
       )
 
-      val tsOutput = Path.fromString(tsFile.getAbsolutePath.replace("\\.ts$", ".js")).string
+      val outputJsPath = Path.fromString(tsFile.getAbsolutePath.replaceFirst("""\.ts$""", ".js"))
+      val tsOutput = outputJsPath.string
+      outputJsPath.delete()
 
       val declarationsFiles = if (writeDeclarations)
         List(new File(tsFile.getAbsolutePath.replace("\\.ts$", ".d.ts")))
