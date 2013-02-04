@@ -47,6 +47,6 @@ object PluginBuild extends Build {
           </developer>
         </developers>
       )
-  )
+  ).settings(ScriptedPlugin.scriptedSettings:_*)
 
 }

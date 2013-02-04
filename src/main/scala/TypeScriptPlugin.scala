@@ -1,4 +1,4 @@
-package net.litola
+package com.github.mumoshu.play2.typescript
 
 import sbt._
 import sbt.Keys._
