@@ -1,4 +1,4 @@
-package net.litola
+package com.github.mumoshu.play2.typescript
 
 import sbt.PlayExceptions.AssetCompilationException
 import java.io.File

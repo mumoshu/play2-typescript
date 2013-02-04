@@ -1,6 +1,7 @@
 import sbt._
 import Keys._
 import PlayProject._
+import com.github.mumoshu.play2.typescript.TypeScriptPlugin._
 
 object ApplicationBuild extends Build {
 

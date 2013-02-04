@@ -1,6 +1,6 @@
 import org.scalatest.FunSpec
 import java.io.File
-import net.litola.TypeScriptCompiler
+import com.github.mumoshu.play2.typescript.TypeScriptCompiler
 
 class TypeScriptCompilerSpec extends FunSpec {
   describe("TypeScriptCompiler") {
