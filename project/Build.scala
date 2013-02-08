@@ -47,6 +47,8 @@ object PluginBuild extends Build {
           </developer>
         </developers>
       )
-  ).settings(ScriptedPlugin.scriptedSettings:_*)
+  ).settings(ScriptedPlugin.scriptedSettings:_*).settings(
+    ScriptedPlugin.scriptedLaunchOpts ++= Seq("-XX:+CMSClassUnloadingEnabled", "-XX:MaxPermSize=256m", "-Xmx512M", "-Xss2M")
+  )
 
 }

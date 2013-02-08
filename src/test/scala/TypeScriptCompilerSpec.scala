@@ -31,9 +31,8 @@ document.body.innerHTML = greeter(user);
           |})
           |""".stripMargin)
       assert(minified.isEmpty)
-      assert(deps.length === 2)
-      assert(deps(1).getName() === "amd.ts")
-      assert(deps(1).getName() === "amd.ts.d")
+      assert(deps.length === 1)
+      assert(deps(0).getName() === "amd.ts")
 
     }
   }
