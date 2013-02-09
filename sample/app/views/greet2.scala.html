@@ -4,5 +4,7 @@
 
 }
 
-<script src="@routes.Assets.at("greeter2.min.js")" type="text/javascript"></script>
+@helper.requireJs(core = routes.Assets.at("javascripts/require.js").url, module = routes.Assets.at("javascripts/greeter2").url)
+
+<!-- script src="@routes.Assets.at("greeter2.min.js")" type="text/javascript"></script -->
 
