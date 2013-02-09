@@ -13,14 +13,9 @@ object ApplicationBuild extends Build {
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
-    TaskKey[Unit]("check") <<= (target) map { (target) =>
-//      val process = sbt.Process("java", Seq("-jar", (target / "foo.jar").toString))
-//      val out = (process!!)
-//      if (out.trim != "bye") error("unexpected output: " + out)
-      println("TARGET:" + target)
-      ()
-    },
-    tsOptions ++= Seq("--module", "amd")
+    libraryDependencies += "org.specs2" %% "specs2" % "1.13" % "test",
+    sourceDirectory in Test <<= baseDirectory / "src/test",
+    scalaSource in Test <<= baseDirectory / "src/test/scala"
   )
 
 }
