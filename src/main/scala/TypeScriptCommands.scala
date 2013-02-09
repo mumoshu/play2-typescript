@@ -19,13 +19,14 @@ trait TypeScriptCommands {
     val  jsFolder = tsDirectory
     val rjoldDir = crossTarget / "classes" / "public" / jsFolder
     val buildDesc = crossTarget / "classes" / "public" / buildDescName
-    val requireJs = tsEntryPoints.getPaths.map(_.replaceAll("""\.ts$""", ""))
+    val requireJs = (rjoldDir ** "*.js").getPaths.map(_.replaceAll("""\.ts$""", ".js"))
     s.log.info("requireJs modules: " + requireJs)
+    s.log.info("rjoldDir: " + rjoldDir.getAbsolutePath)
     if (requireJs.isEmpty == false) {
       val rjnewDir = new JFile(rjoldDir.getAbsolutePath + "-min")
       //cleanup previous version
       IO.delete(rjnewDir)
-      val relativeModulePath = (str: String) => str.replace(".js", "")
+      val relativeModulePath = (str: String) => str.replaceAll(rjoldDir.getAbsolutePath + "/", "").replace(".js", "")
 //      val shim = if (!requireJsShim.isEmpty) {"""mainConfigFile: """" + jsFolder + """/""" + requireJsShim + """", """} else {""};
       val shim = ""
       val content =  """({appDir: """" + jsFolder + """",
