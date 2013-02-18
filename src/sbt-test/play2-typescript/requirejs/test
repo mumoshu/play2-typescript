@@ -1,10 +1,11 @@
 > play-copy-assets
-$ exists target/scala-2.10/resource_managed/main/public/javascripts/rjs/libs.js
-$ exists target/scala-2.10/resource_managed/main/public/javascripts/rjs/main.js
+$ exists target/scala-2.10/resource_managed/main/public/javascripts/libs.js
+$ exists target/scala-2.10/resource_managed/main/public/javascripts/main.js
 > stage
-$ exists target/scala-2.10/classes/public/javascripts/rjs/libs.js
-$ exists target/scala-2.10/classes/public/javascripts/rjs/main.js
-$ exists target/scala-2.10/classes/public/javascripts-min/rjs/libs.js
-$ exists target/scala-2.10/classes/public/javascripts-min/rjs/main.js
+$ exists target/scala-2.10/classes/public/javascripts/libs.js
+$ exists target/scala-2.10/classes/public/javascripts/main.js
+$ exists target/scala-2.10/classes/public/javascripts-min/libs.js
+$ exists target/scala-2.10/classes/public/javascripts-min/main.js
 > test
+> dist
 $ pause

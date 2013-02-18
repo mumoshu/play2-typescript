@@ -7,7 +7,8 @@ object IntegrationSpec extends Specification {
   "Application" should {
     "return OK whose body is \"1+1=3, a+b=ab\"" in new WithBrowser(webDriver = classOf[ChromeDriver]) {
       browser.goTo("/")
-      browser.$("body").getTexts().get(0) must equalTo("1+1=3, a+b=ab")
+      val root = browser.$("html")
+      browser.$("body").getTexts().get(0) aka ("text of <body/> in: " + root.first.html) must equalTo("1+1=3, a+b=ab")
     }
   }
 }

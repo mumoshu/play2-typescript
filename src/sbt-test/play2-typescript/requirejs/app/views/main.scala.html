@@ -2,7 +2,12 @@
 
 <html>
 <head>
+<!-- Before
 <script type="text/javascript" data-main="/assets/javascripts/rjs/main" src="@controllers.routes.Assets.at("javascripts/require.js")"></script>
+-->
+<!-- Since Play 2.1 -->
+@helper.requireJs(core = routes.Assets.at("javascripts/require.js").url, module = routes.Assets.at("javascripts/main").url)
+<!-- CAUTION: It won't work if main.js is put under somewhere like `javascripts/foo/`, instead of putting it directly under `javascripts/`.
 </head>
 <body>
 

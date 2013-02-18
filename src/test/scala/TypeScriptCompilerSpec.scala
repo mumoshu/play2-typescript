@@ -35,5 +35,22 @@ document.body.innerHTML = greeter(user);
       assert(deps(0).getName() === "amd.ts")
 
     }
+
+    it("should compile ts file with compiler options") {
+      val tsFile = new File("src/test/resources/amd.ts")
+      val (full, minified, deps) = TypeScriptCompiler.compile(tsFile, Seq("--module", "amd", "--sourcemap"))
+      assert(full ===
+        """define(["require", "exports", "./lib"], function(require, exports, __lib__) {
+          |    var lib = __lib__;
+          |
+          |    var greeter = new lib.Greeter();
+          |    document.body.innerHTML = greeter.greet("mikoto");
+          |})
+          |""".stripMargin)
+      assert(minified.isEmpty)
+      assert(deps.length === 3)
+      assert(deps(0).getName() === "amd.ts")
+
+    }
   }
 }
