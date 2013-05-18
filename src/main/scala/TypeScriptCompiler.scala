@@ -25,7 +25,7 @@ object TypeScriptCompiler {
       val tempOut = createTempDir()
       val outOption = Seq("--out", tempOut.getPath)
       val tscOutput = runCompiler(
-        cmd ++ options ++ writeDeclarationsOptions ++ outOption ++ Seq(tsFile.getAbsolutePath)
+        cmd ++ options.filter( _ != "rjs" ) ++ writeDeclarationsOptions ++ outOption ++ Seq(tsFile.getAbsolutePath)
       )
       val outJsFileName = tsFile.getName.replaceAll("\\.ts$", ".js")
       val outJsFilePaths = {
