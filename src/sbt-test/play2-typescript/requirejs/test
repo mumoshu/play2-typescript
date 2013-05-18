@@ -1,9 +1,13 @@
 > play-copy-assets
 $ exists target/scala-2.10/resource_managed/main/public/javascripts/libs.js
 $ exists target/scala-2.10/resource_managed/main/public/javascripts/main.js
+$ exists target/scala-2.10/resource_managed/main/public/javascripts/libs/utils.js
+$ exists target/scala-2.10/resource_managed/main/public/javascripts/libs2/utils2.js
 > stage
 $ exists target/scala-2.10/classes/public/javascripts/libs.js
 $ exists target/scala-2.10/classes/public/javascripts/main.js
+$ exists target/scala-2.10/classes/public/javascripts/libs/utils.js
+$ exists target/scala-2.10/classes/public/javascripts/libs2/utils2.js
 $ exists target/scala-2.10/classes/public/javascripts-min/libs.js
 $ exists target/scala-2.10/classes/public/javascripts-min/main.js
 > test

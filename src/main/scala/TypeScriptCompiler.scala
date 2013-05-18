@@ -7,6 +7,8 @@ import sbt.IO
 import io.Source._
 import scalax.file.Path
 import scalax.io.JavaConverters._
+import scala.annotation.tailrec
+import scalax.file.defaultfs.DefaultPath
 
 object TypeScriptCompiler {
   def compile(tsFile: File, options: Seq[String]): (String, Option[String], Seq[File]) = {
@@ -25,9 +27,18 @@ object TypeScriptCompiler {
       val tscOutput = runCompiler(
         cmd ++ options ++ writeDeclarationsOptions ++ outOption ++ Seq(tsFile.getAbsolutePath)
       )
+      val outJsFileName = tsFile.getName.replaceAll("\\.ts$", ".js")
+      val outJsFilePaths = {
+        val parents = Path.fromString(tsFile.getAbsolutePath).parents.reverse.map(_.name).filter(_.length > 0).tails
+        parents.toList.sortBy(_.size).map { parent =>
+          parent.foldLeft(Path(tempOut))(_ / _) / outJsFileName
+        }
+      }
+      val outJsContent = outJsFilePaths.find(_.isFile).map(_.string)
 
-      val tsOutput = Path.fromString(tempOut + File.separator + tsFile.getName.replaceAll("\\.ts$", ".js")).string
-        .replaceAll("\\r\\n", System.getProperty("line.separator")).replaceAll("\\r", "\n")
+      assert(outJsContent.isDefined, "One of those files should exist: " + outJsFilePaths)
+
+      val tsOutput = outJsContent.get.replaceAll("\\r\\n", System.getProperty("line.separator")).replaceAll("\\r", "\n")
 
 //      val declarationsFiles = if (writeDeclarations)
 //        List(new File(tsFile.getAbsolutePath.replace("\\.ts$", ".d.ts")))

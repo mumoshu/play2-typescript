@@ -28,7 +28,7 @@ Installation
 
 In your Play application folder, add
 
-    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.2-RC4")
+    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.2-RC5")
 
 to `project/plugins.sbt`.
 
@@ -60,6 +60,10 @@ It's a pain to debug your actual TypeScript code through the glass: JavaScript s
 We really should always serve sourcemaps for our TypeScript sources in DEV mode.
 The goal is that we could just see the original TypeScript source for each served JavaScript source,
 using Google Chrome, opening 'Sources' tab in Developer Tools.
+
+Version History
+---------------
+0.2-RC5 Fix #14
 
 Acknowledgements
 ----------------
