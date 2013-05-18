@@ -15,7 +15,8 @@ object ApplicationBuild extends Build {
   val main = play.Project(appName, appVersion, appDependencies).settings(
     libraryDependencies += "org.specs2" %% "specs2" % "1.13" % "test",
     sourceDirectory in Test <<= baseDirectory / "src/test",
-    scalaSource in Test <<= baseDirectory / "src/test/scala"
+    scalaSource in Test <<= baseDirectory / "src/test/scala",
+    requireJs := Seq( "main.js" )
   )
 
 }

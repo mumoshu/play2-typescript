@@ -28,7 +28,7 @@ Installation
 
 In your Play application folder, add
 
-    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.2-RC5")
+    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.2-RC6")
 
 to `project/plugins.sbt`.
 
@@ -63,7 +63,8 @@ using Google Chrome, opening 'Sources' tab in Developer Tools.
 
 Version History
 ---------------
-0.2-RC5 Fix #14
+0.2-RC5 Fix [#14](https://github.com/mumoshu/play2-typescript/issues/14)
+0.2-RC6 Fix [#15](https://github.com/mumoshu/play2-typescript/pull/15)
 
 Acknowledgements
 ----------------
