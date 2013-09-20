@@ -1,5 +1,6 @@
 import sbt._
 import sbt.Keys._
+import Defaults._
 
 object PluginBuild extends Build {
 
@@ -7,16 +8,20 @@ object PluginBuild extends Build {
     id = "play2-typescript", base = file(".")
   ).settings(
     sbtPlugin := true,
-    scalaVersion := "2.9.1",
+    scalaVersion := "2.9.2",
     description := "SBT plugin for handling TypeScript assets in Play 2",
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
     libraryDependencies ++= Seq(
-      //"play" %% "play" % "2.0.3",
-      "org.scalatest" %% "scalatest" % "1.7.1" % "test"
+      "org.scalatest" %% "scalatest" % "1.9.1" % "test"
     ),
-    addSbtPlugin("play" % "sbt-plugin" % "2.0.3"),
+    resolvers += Resolver.url("Typesafe ivy releases", url("http://repo.typesafe.com/typesafe/ivy-releases"))(Resolver.ivyStylePatterns),
+    addSbtPlugin("play" % "sbt-plugin" % "2.1.0" % "provided"),
     organization := "com.github.mumoshu",
+<<<<<<< HEAD
     version := "0.1.3-SNAPSHOT",
+=======
+    version := "0.2-RC7-SNAPSHOT",
+>>>>>>> play-2.1
     publishTo <<= version { v: String =>
       val nexus = "https://oss.sonatype.org/"
       if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
@@ -46,6 +51,8 @@ object PluginBuild extends Build {
           </developer>
         </developers>
       )
+  ).settings(ScriptedPlugin.scriptedSettings:_*).settings(
+    ScriptedPlugin.scriptedLaunchOpts ++= Seq("-XX:+CMSClassUnloadingEnabled", "-XX:MaxPermSize=256m", "-Xmx512M", "-Xss2M")
   )
 
 }
