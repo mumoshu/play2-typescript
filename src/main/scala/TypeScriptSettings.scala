@@ -12,7 +12,6 @@ trait TypeScriptSettings extends TypeScriptKeys with TypeScriptCommands {
   tsEntryPoints,
   { (name, min) =>
     name.replace(".ts", ".js")
-    name.replace(".ts", ".js")
   },
   { (tsFile, options) =>
     TypeScriptCompiler.compile(tsFile, options)

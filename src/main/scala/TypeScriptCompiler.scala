@@ -23,11 +23,11 @@ object TypeScriptCompiler {
       else
         Seq("tsc")
       val tempOut = createTempDir()
-      val outOption = Seq("--out", tempOut.getPath)
+      val outJsFileName = tsFile.getName.replaceAll("\\.ts$", ".js")
+      val outOption = Seq("--out", tempOut.getPath + "/" + outJsFileName)
       val tscOutput = runCompiler(
         cmd ++ options.filter( _ != "rjs" ) ++ writeDeclarationsOptions ++ outOption ++ Seq(tsFile.getAbsolutePath)
       )
-      val outJsFileName = tsFile.getName.replaceAll("\\.ts$", ".js")
       val outJsFilePaths = {
         val parents = Path.fromString(tsFile.getAbsolutePath).parents.reverse.map(_.name).filter(_.length > 0).tails
         parents.toList.sortBy(_.size).map { parent =>
