@@ -3,6 +3,7 @@ package com.github.mumoshu.play2.typescript
 import sbt._
 import sbt.Keys._
 import play.Project.AssetsCompiler
+import PlayExceptions._
 
 trait TypeScriptSettings extends TypeScriptKeys with TypeScriptCommands {
 
@@ -11,10 +12,15 @@ trait TypeScriptSettings extends TypeScriptKeys with TypeScriptCommands {
   { file => (file ** "*.ts") },
   tsEntryPoints,
   { (name, min) =>
-    name.replace(".ts", ".js")
+    name.replace(".ts", if(min) ".min.js" else ".js")
   },
   { (tsFile, options) =>
-    TypeScriptCompiler.compile(tsFile, options)
+    import scala.util.control.Exception._
+    TypeScriptCompiler.compile(tsFile, options) match {
+      case (jsSource, _, files) =>
+        val minified = catching(classOf[CompilationException]).opt(play.core.jscompile.JavascriptCompiler.minify(jsSource, Some(tsFile.getName())))
+        (jsSource, minified, files)
+    }  
   },
   tsOptions
   )
