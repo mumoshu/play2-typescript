@@ -12,12 +12,18 @@ import scala.annotation.tailrec
 import scalax.file.defaultfs.DefaultPath
 
 object TypeScriptCompiler {
+
+  val dependenciesPattern = "/// <reference path=\"([^\"]*)\"".r
+
   def compile(tsFile: File, options: Seq[String]): (String, Option[String], Seq[File]) = {
     try {
       val parentPath = tsFile.getParentFile.getAbsolutePath
 //      val writeDeclarations = Path(tsFile).string.contains("module")
 //      val writeDeclarationsOptions = if (writeDeclarations)
 //        Seq("--declarations") else Seq.empty
+
+      val dependencies = makeDependenciesList(tsFile)
+      println("TypeScript compiling " + tsFile.getName + (if (!dependencies.isEmpty) ", dependencies: " + dependencies.mkString(", ") else ""))
       val writeDeclarationsOptions = Seq.empty
       val cmd = if (System.getProperty("os.name").startsWith("Windows"))
         Seq("cmd", "/C", "tsc")
@@ -45,13 +51,17 @@ object TypeScriptCompiler {
 //        List(new File(tsFile.getAbsolutePath.replace("\\.ts$", ".d.ts")))
 //      else Nil
       val declarationsFiles = Nil
-
-      (tsOutput, None, List(tsFile) ++ declarationsFiles )
+      (tsOutput, None, List(tsFile) ++ declarationsFiles ++ dependencies.map { file => new File(parentPath + "/" + file)})
     } catch {
       case e: TypeScriptCompilationException => {
         throw AssetCompilationException(e.file.orElse(Some(tsFile)), "TypeScript compiler: " + e.message, Some(e.line), Some(e.column))
       }
     }
+  }
+
+  private def makeDependenciesList(tsFile: File): Seq[String] = {
+    val text = scala.io.Source.fromFile(tsFile).getLines.mkString
+    dependenciesPattern.findAllIn(text).matchData.map(_.group(1)).toList
   }
 
   private val DependencyLine = """^/\* line \d+, (.*) \*/$""".r
@@ -64,9 +74,6 @@ object TypeScriptCompiler {
   private def runCompiler(command: Seq[String]): String = {
     val err = new StringBuilder
     val out = new StringBuilder
-
-    println("Running: " + command)
-
     val capturer = ProcessLogger(
       (output: String) => out.append(output + "\n"),
       (error: String) => err.append(error + "\n"))
