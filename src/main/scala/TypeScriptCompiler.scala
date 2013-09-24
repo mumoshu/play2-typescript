@@ -1,6 +1,6 @@
 package com.github.mumoshu.play2.typescript
 
-import sbt.PlayExceptions.AssetCompilationException
+import play.PlayExceptions.AssetCompilationException
 import java.io.File
 import scala.collection.JavaConverters._
 import scala.sys.process._

@@ -3,7 +3,7 @@ package com.github.mumoshu.play2.typescript
 import sbt._
 import sbt.Keys._
 import play.Project.AssetsCompiler
-import PlayExceptions._
+import play.PlayExceptions._
 
 trait TypeScriptSettings extends TypeScriptKeys with TypeScriptCommands {
 

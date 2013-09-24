@@ -3,7 +3,7 @@ package com.github.mumoshu.play2.typescript
 import java.io.{File => JFile}
 import sbt._
 import sbt.Keys._
-import sbt.PlayKeys._
+import play.Keys._
 import sbt.IO
 
 trait TypeScriptCommands {
