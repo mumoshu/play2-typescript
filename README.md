@@ -1,13 +1,13 @@
 play2-typescript
 ===========
 
-[TypeScript] [1] asset handling for [Play 2.1.0] [2], implemented as an [sbt] [3]
+[TypeScript] [1] asset handling for [Play 2.2.0] [2], implemented as an [sbt] [3]
 plugin (very similar to Play's handling of CoffeeScript and LESS).
 
 Prerequisites
 -------------
 
-The plugin assumes 0.8.2.0 of TypeScript compiler executable - `tsc` - to be available in your PATH.
+The plugin uses TypeScript compiler executable - `tsc` - which should added to your PATH.
 
 Recommended way to install it in your system is, with node.js and npm installed, run:
 
@@ -62,11 +62,6 @@ It's a pain to debug your actual TypeScript code through the glass: JavaScript s
 We really should always serve sourcemaps for our TypeScript sources in DEV mode.
 The goal is that we could just see the original TypeScript source for each served JavaScript source,
 using Google Chrome, opening 'Sources' tab in Developer Tools.
-
-Version History
----------------
-0.2-RC5 Fix [#14](https://github.com/mumoshu/play2-typescript/issues/14)
-0.2-RC6 Fix [#15](https://github.com/mumoshu/play2-typescript/pull/15)
 
 Acknowledgements
 ----------------
