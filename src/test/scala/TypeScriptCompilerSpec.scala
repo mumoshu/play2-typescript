@@ -19,7 +19,7 @@ document.body.innerHTML = greeter(user);
       assert(deps(0).getName() === "ok.ts")
     }
 
-    it("should compile ts file with compiler options") {
+    it("should compile ts file with compiler with the `--module amd` compiler option") {
       val tsFile = new File("src/test/resources/amd.ts")
       val (full, minified, deps) = TypeScriptCompiler.compile(tsFile, Seq("--module", "amd"))
       assert(full ===
@@ -31,12 +31,12 @@ document.body.innerHTML = greeter(user);
           |})
           |""".stripMargin)
       assert(minified.isEmpty)
-      assert(deps.length === 1)
+      assert(deps.length === 2)
       assert(deps(0).getName() === "amd.ts")
-
+      assert(deps(1).getName() === "lib.ts")
     }
 
-    it("should compile ts file with compiler options") {
+    it("should compile ts file with the `--sourcemap` compiler option") {
       val tsFile = new File("src/test/resources/amd.ts")
       val (full, minified, deps) = TypeScriptCompiler.compile(tsFile, Seq("--module", "amd", "--sourcemap"))
       assert(full ===
@@ -46,11 +46,12 @@ document.body.innerHTML = greeter(user);
           |    var greeter = new lib.Greeter();
           |    document.body.innerHTML = greeter.greet("mikoto");
           |})
+          |//@ sourceMappingURL=amd.js.map
           |""".stripMargin)
       assert(minified.isEmpty)
-      assert(deps.length === 3)
+      assert(deps.length === 2)
       assert(deps(0).getName() === "amd.ts")
-
+      assert(deps(1).getName() === "lib.ts")
     }
   }
 }

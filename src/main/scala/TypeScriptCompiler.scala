@@ -31,7 +31,21 @@ object TypeScriptCompiler {
         Seq("tsc")
       val tempOut = createTempDir()
       val outJsFileName = tsFile.getName.replaceAll("\\.ts$", ".js")
-      val outOption = Seq("--out", tempOut.getPath + "/" + outJsFileName)
+
+      def pairedOptions(options: Seq[String]): Seq[String] = {
+        options match {
+          case Seq(a, b, rest @ _*) if a.startsWith("--") && !b.startsWith("--") =>
+            s"${a} ${b}" +: rest
+          case Seq(a, rest @ _*) =>
+            a +: pairedOptions(rest)
+          case Seq() =>
+            options
+        }
+      }
+      def determineIfCompilingDynamicModules(options: Seq[String]) = options.exists(_ == "--module amd")
+
+      val compilingDynamicModules = determineIfCompilingDynamicModules(pairedOptions(options))
+      val outOption = Seq("--out", tempOut.getPath + "/" + (if (compilingDynamicModules) "" else outJsFileName))
       val tscOutput = runCompiler(
         cmd ++ options.filter( _ != "rjs" ) ++ writeDeclarationsOptions ++ outOption ++ Seq(tsFile.getAbsolutePath)
       )
@@ -74,15 +88,24 @@ object TypeScriptCompiler {
   private def runCompiler(command: Seq[String]): String = {
     val err = new StringBuilder
     val out = new StringBuilder
+    val all = new StringBuilder
     val capturer = ProcessLogger(
-      (output: String) => out.append(output + "\n"),
-      (error: String) => err.append(error + "\n"))
+      (output: String) => {
+        out.append(output + "\n")
+        all.append(output + "\n")
+      },
+      (error: String) => {
+        err.append(error + "\n")
+        all.append(error + "\n")
+      }
+    )
 
+    all.append(s"Capturing the output of the command `${command.mkString(" ")}`:")
     val process = Process(command, None, System.getenv().asScala.toSeq:_*).run(capturer)
     if (process.exitValue == 0) {
       out.mkString
     } else
-      throw new TypeScriptCompilationException(err.toString)
+      throw new TypeScriptCompilationException(all.toString)
   }
 
   private val LocationLine = """\s*on line (\d+) of (.*)""".r

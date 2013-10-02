@@ -5,8 +5,8 @@ logLevel := Level.Warn
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
 // Use the Play sbt plugin for Play projects
-addSbtPlugin("play" % "sbt-plugin" % "2.1.0")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0")
 
 resolvers += "Sonatype OSS Snapshots Repository" at "http://oss.sonatype.org/content/groups/public"
 
-addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.2-RC5-SNAPSHOT" changing())
+addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.2-RC10-SNAPSHOT" changing())
