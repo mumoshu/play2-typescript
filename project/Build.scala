@@ -17,7 +17,7 @@ object PluginBuild extends Build {
     resolvers += Resolver.url("Typesafe ivy releases", url("http://repo.typesafe.com/typesafe/ivy-releases"))(Resolver.ivyStylePatterns),
     addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0" % "provided"),
     organization := "com.github.mumoshu",
-    version := "0.2-RC10",
+    version := "0.2-RC11",
     publishMavenStyle := true,
     publishArtifact in Test := false,
     pomIncludeRepository := { _ => false },
