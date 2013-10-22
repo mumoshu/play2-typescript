@@ -15,6 +15,7 @@ object PluginBuild extends Build {
       "org.scalatest" %% "scalatest" % "1.9.1" % "test"
     ),
     resolvers += Resolver.url("Typesafe ivy releases", url("http://repo.typesafe.com/typesafe/ivy-releases"))(Resolver.ivyStylePatterns),
+    resolvers += Resolver.url("Typesafe releases", url("http://repo.typesafe.com/typesafe/releases")),
     addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0" % "provided"),
     organization := "com.github.mumoshu",
     publishTo <<= version { v: String =>
