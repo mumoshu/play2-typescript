@@ -4,7 +4,7 @@ import sbt._
 import sbt.Keys._
 
 object TypeScriptPlugin extends Plugin with TypeScriptSettings {
-    override val settings = defaultSettings
+    val typescript = defaultSettings
 }
 
 // vim: set ts=4 sw=4 et:
