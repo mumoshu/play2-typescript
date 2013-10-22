@@ -1,6 +1,6 @@
 language: scala
 scala:
   - 2.10.2
-install: nodejs
+install: apt-get install nodejs
 before_script:
   - npm install typescript -g
