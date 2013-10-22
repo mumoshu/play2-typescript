@@ -11,7 +11,9 @@ class TypeScriptCompilerSpec extends FunSpec {
         """function greeter(person) {
     return "Hello, " + person;
 }
+
 var user = "Jane User";
+
 document.body.innerHTML = greeter(user);
 """)
       assert(minified.isEmpty)
@@ -24,11 +26,13 @@ document.body.innerHTML = greeter(user);
       val (full, minified, deps) = TypeScriptCompiler.compile(tsFile, Seq("--module", "amd"))
       assert(full ===
         """define(["require", "exports", "./lib"], function(require, exports, __lib__) {
+          |    /// <reference path="lib.ts">
           |    var lib = __lib__;
           |
           |    var greeter = new lib.Greeter();
+          |
           |    document.body.innerHTML = greeter.greet("mikoto");
-          |})
+          |});
           |""".stripMargin)
       assert(minified.isEmpty)
       assert(deps.length === 2)
@@ -41,12 +45,14 @@ document.body.innerHTML = greeter(user);
       val (full, minified, deps) = TypeScriptCompiler.compile(tsFile, Seq("--module", "amd", "--sourcemap"))
       assert(full ===
         """define(["require", "exports", "./lib"], function(require, exports, __lib__) {
+          |    /// <reference path="lib.ts">
           |    var lib = __lib__;
           |
           |    var greeter = new lib.Greeter();
+          |
           |    document.body.innerHTML = greeter.greet("mikoto");
-          |})
-          |//@ sourceMappingURL=amd.js.map
+          |});
+          |//# sourceMappingURL=amd.js.map
           |""".stripMargin)
       assert(minified.isEmpty)
       assert(deps.length === 2)

@@ -45,7 +45,10 @@ object TypeScriptCompiler {
       def determineIfCompilingDynamicModules(options: Seq[String]) = options.exists(_ == "--module amd")
 
       val compilingDynamicModules = determineIfCompilingDynamicModules(pairedOptions(options))
-      val outOption = Seq("--out", tempOut.getPath + "/" + (if (compilingDynamicModules) "" else outJsFileName))
+      val outOption = if (compilingDynamicModules)
+                        Seq("--outDir", tempOut.getPath)
+                      else
+                        Seq("--out", tempOut.getPath + "/" + outJsFileName)
       val tscOutput = runCompiler(
         cmd ++ options.filter( _ != "rjs" ) ++ writeDeclarationsOptions ++ outOption ++ Seq(tsFile.getAbsolutePath)
       )
