@@ -1,4 +1,4 @@
-import utils = module("libs/utils");
+import utils = require("libs/utils");
 export module Text {
     export class Add {
         apply(a, b) {

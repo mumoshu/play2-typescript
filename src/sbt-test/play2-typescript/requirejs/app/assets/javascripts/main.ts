@@ -1,6 +1,6 @@
-import lib = module("./libs");
-import utils = module("./libs/utils");
-import utils2 = module("libs2/utils2");
+import lib = require("./libs");
+import utils = require("./libs/utils");
+import utils2 = require("libs2/utils2");
 
 var Math = lib.Math;
 var Text = utils.Text;
