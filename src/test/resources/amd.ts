@@ -1,5 +1,5 @@
 /// <reference path="lib.ts">
-import lib = module("./lib")
+import lib = require("./lib")
 
 var greeter = new lib.Greeter();
 
