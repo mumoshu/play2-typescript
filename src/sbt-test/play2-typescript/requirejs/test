@@ -12,4 +12,3 @@ $ exists target/scala-2.10/classes/public/javascripts-min/libs.js
 $ exists target/scala-2.10/classes/public/javascripts-min/main.js
 > test
 > dist
-$ pause

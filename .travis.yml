@@ -1,4 +1,5 @@
 language: scala
+script: sh ./run-all-tests
 scala:
   - 2.10.2
 install: sudo apt-get install nodejs

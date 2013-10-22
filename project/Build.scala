@@ -25,7 +25,7 @@ object PluginBuild extends Build {
       else
         Some("releases" at nexus + "service/local/staging/deploy/maven2")
     },
-    version := "0.2-RC11",
+    version := "0.3.0-RC1",
     publishMavenStyle := true,
     publishArtifact in Test := false,
     pomIncludeRepository := { _ => false },

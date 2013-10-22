@@ -12,8 +12,10 @@ object ApplicationBuild extends Build {
       // Add your project dependencies here,
     )
 
-    val main = play.Project(appName, appVersion, appDependencies).settings(
-      tsOptions ++= Seq("--sourcemap")
-    )
+    val main = play.Project(appName, appVersion, appDependencies)
+      .settings(typescriptSettings: _*)
+      .settings(
+        tsOptions ++= Seq("--sourcemap")
+      )
 
 }

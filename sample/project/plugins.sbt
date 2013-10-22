@@ -9,4 +9,4 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0")
 
 resolvers += "Sonatype OSS Snapshots Repository" at "http://oss.sonatype.org/content/groups/public"
 
-addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.2-RC10-SNAPSHOT" changing())
+addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.3.0-RC1" changing())
