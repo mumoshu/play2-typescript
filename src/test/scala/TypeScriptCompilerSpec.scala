@@ -59,5 +59,25 @@ document.body.innerHTML = greeter(user);
       assert(deps(0).getName() === "amd.ts")
       assert(deps(1).getName() === "lib.ts")
     }
+
+    it("should compile .ts files with two non-referenced but dependent modules") {
+      val tsFile = new File("src/test/resources/main.ts")
+      val (full, minified, deps) = TypeScriptCompiler.compile(tsFile, Seq("--module", "amd", "--sourcemap"))
+      assert(full ===
+        """define(["require", "exports", "jquery", "underscore"], function(require, exports, __jquery__, __underscore__) {
+          |    var jquery = __jquery__;
+          |    var underscore = __underscore__;
+          |
+          |    (function (A) {
+          |        console.log(jquery.$ + underscore._);
+          |    })(exports.A || (exports.A = {}));
+          |    var A = exports.A;
+          |});
+          |//# sourceMappingURL=main.js.map
+          |""".stripMargin)
+      assert(minified.isEmpty)
+      assert(deps.length === 1)
+      assert(deps(0).getName() === "main.ts")
+    }
   }
 }
