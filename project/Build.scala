@@ -17,6 +17,13 @@ object PluginBuild extends Build {
     resolvers += Resolver.url("Typesafe ivy releases", url("http://repo.typesafe.com/typesafe/ivy-releases"))(Resolver.ivyStylePatterns),
     addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0" % "provided"),
     organization := "com.github.mumoshu",
+    publishTo <<= version { v: String =>
+      val nexus = "https://oss.sonatype.org/"
+      if (v.trim.endsWith("SNAPSHOT"))
+        Some("snapshots" at nexus + "content/repositories/snapshots")
+      else
+        Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    },
     version := "0.2-RC11",
     publishMavenStyle := true,
     publishArtifact in Test := false,
