@@ -63,6 +63,35 @@ We really should always serve sourcemaps for our TypeScript sources in DEV mode.
 The goal is that we could just see the original TypeScript source for each served JavaScript source,
 using Google Chrome, opening 'Sources' tab in Developer Tools.
 
+Contributing
+------------
+
+Q. How do we setup our own Travis CI build?
+
+A. There are two properties you must customize in .travis.yml
+
+- addons.sauce_connect.username
+- addons.sauec_connect.access_key
+
+For the latter, we should encrypt it to prevent our OpenSauce account from abuses.
+To do this, run the below command in our project directory:
+
+    travis encrypt --add addons.sauce_connect.access_key THE_ACCESS_KEY
+
+Assuming a .travis.yml file which contains:
+
+    addons:
+      sauce_connect:
+        username: mumoshu
+
+The command will add our access key encrypted to our .travis.yml file like:
+
+    addons:
+      sauce_connect:
+        username: mumoshu
+        access_key:
+          secure: mgjauzNcJeW2co5Am4IqPgaR8CJsGZIQca4M7mZj1z+XlRIE4bw5PNmIk7coNj5/FWSmxlgT1vdK2G2pj4R2u+pl89zdeoBaLSffrFa0sHa2IOg6+UZiAB0EYUACChO9A8gVXd78n/zq52Q0Kj38SjsFnj/G/EsN7zbPqbY0Uis=
+
 Acknowledgements
 ----------------
 

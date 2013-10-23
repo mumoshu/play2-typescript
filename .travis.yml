@@ -1,7 +1,12 @@
 language: scala
 script: sh ./run-all-tests
 scala:
-  - 2.10.2
+- 2.10.2
 install: sudo apt-get install nodejs
 before_script:
-  - npm install typescript -g
+- npm install typescript -g
+addons:
+  sauce_connect:
+    username: mumoshu
+    access_key:
+      secure: mgjauzNcJeW2co5Am4IqPgaR8CJsGZIQca4M7mZj1z+XlRIE4bw5PNmIk7coNj5/FWSmxlgT1vdK2G2pj4R2u+pl89zdeoBaLSffrFa0sHa2IOg6+UZiAB0EYUACChO9A8gVXd78n/zq52Q0Kj38SjsFnj/G/EsN7zbPqbY0Uis=
