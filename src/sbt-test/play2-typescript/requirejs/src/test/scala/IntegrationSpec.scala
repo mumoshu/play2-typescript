@@ -1,11 +1,12 @@
 import java.net.URL
-import org.openqa.selenium.{WebDriver, Capabilities}
+import org.openqa.selenium.{Platform, WebDriver, Capabilities}
 import org.openqa.selenium.remote.{DesiredCapabilities, RemoteWebDriver}
 import org.specs2.mutable._
 import play.api.test._
 import play.api.test.Helpers._
 import org.openqa.selenium.chrome._
 import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 
 object IntegrationSpec extends Specification {
 
@@ -16,7 +17,13 @@ object IntegrationSpec extends Specification {
         val accessKey = System.getenv("SAUCE_ACCESS_KEY")
         new URL(s"http://${username}:${accessKey}@localhost:4445/wd/hub")
       }, {
-        new DesiredCapabilities(Map("tunnel-identifier" -> System.getenv("TRAVIS_JOB_NUMBER")))
+        val capabilities = DesiredCapabilities.chrome()
+        capabilities.setCapability("tunnel-identifier", System.getenv("TRAVIS_JOB_NUMBER"))
+        capabilities.setCapability("build", System.getenv("TRAVIS_BUILD_NUMBER"))
+        capabilities.setVersion("5.0")
+        capabilities.setPlatform(Platform.MAC)
+        capabilities.setJavascriptEnabled(true)
+        capabilities
       })
     }
   }
