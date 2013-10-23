@@ -22,7 +22,7 @@ object IntegrationSpec extends Specification {
         capabilities.setCapability("build", System.getenv("TRAVIS_BUILD_NUMBER"))
         // See: https://saucelabs.com/docs/platforms
         // for a valid OS/browser/version combo
-        capabilities.setPlatform(Platform.Linux)
+        capabilities.setPlatform(Platform.LINUX)
         capabilities.setJavascriptEnabled(true)
         capabilities
       })
