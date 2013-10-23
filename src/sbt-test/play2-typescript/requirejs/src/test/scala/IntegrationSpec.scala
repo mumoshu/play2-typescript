@@ -20,8 +20,9 @@ object IntegrationSpec extends Specification {
         val capabilities = DesiredCapabilities.chrome()
         capabilities.setCapability("tunnel-identifier", System.getenv("TRAVIS_JOB_NUMBER"))
         capabilities.setCapability("build", System.getenv("TRAVIS_BUILD_NUMBER"))
-        capabilities.setVersion("5.0")
-        capabilities.setPlatform(Platform.MAC)
+        // See: https://saucelabs.com/docs/platforms
+        // for a valid OS/browser/version combo
+        capabilities.setPlatform(Platform.Linux)
         capabilities.setJavascriptEnabled(true)
         capabilities
       })
