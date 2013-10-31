@@ -1,0 +1,4 @@
+> check
+> play-copy-assets
+$ exists target/scala-2.10/resource_managed/main/public/javascripts/c.js
+$ exists target/scala-2.10/resource_managed/main/public/javascripts/d.js
