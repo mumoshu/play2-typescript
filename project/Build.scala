@@ -10,13 +10,20 @@ object PluginBuild extends Build {
     sbtPlugin := true,
     scalaVersion := "2.10.2",
     description := "SBT plugin for handling TypeScript assets in Play 2",
-    resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest" % "1.9.1" % "test"
     ),
     resolvers += Resolver.url("Typesafe ivy releases", url("http://repo.typesafe.com/typesafe/ivy-releases"))(Resolver.ivyStylePatterns),
-    resolvers += Resolver.url("Typesafe releases", url("http://repo.typesafe.com/typesafe/releases")),
-    addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0" % "provided"),
+    resolvers += "Typesafe releases" at "http://repo.typesafe.com/typesafe/releases",
+//    addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0" % "provided"),
+    libraryDependencies <+= (sbtVersion in sbtPlugin, sbtBinaryVersion in update, scalaBinaryVersion in update) {
+      case ("0.12", sbtV, scalaV) =>
+        sbtPluginExtra("play" % "sbt-plugin" % "2.1.5" % "provided", "0.12", "2.9.2").
+          exclude("com.github.scala-incubator.io", "scala-io-core_2.9.1").
+          exclude("com.github.scala-incubator.io", "scala-io-file_2.9.1")
+      case ("0.13", sbtV, scalaV) =>
+        sbtPluginExtra("com.typesafe.play" % "sbt-plugin" % "2.2.0" % "provided", "0.13", "2.10")
+    },
     organization := "com.github.mumoshu",
     publishTo <<= version { v: String =>
       val nexus = "https://oss.sonatype.org/"
@@ -49,9 +56,15 @@ object PluginBuild extends Build {
             <url>https://github.com/mumoshu</url>
           </developer>
         </developers>
-      )
-  ).settings(ScriptedPlugin.scriptedSettings:_*).settings(
-    ScriptedPlugin.scriptedLaunchOpts ++= Seq("-XX:+CMSClassUnloadingEnabled", "-XX:MaxPermSize=256m", "-Xmx512M", "-Xss2M")
-  )
+      ),
+    // Without forking, we might get the error below while running 2.1.x-entrypoints:
+    //   [error] [ERROR] Terminal initialization failed; falling back to unsupported
+    //   ...
+    //   java.lang.IncompatibleClassChangeError: JLine incompatibility detected.  Check that the sbt launcher is version 0.13.x or later.
+    fork in ScriptedPlugin.scripted := true
+  ).settings(CrossBuilding.scriptedSettings:_*).settings(
+    SbtScriptedSupport.scriptedLaunchOpts ++= Seq("-XX:+CMSClassUnloadingEnabled", "-XX:MaxPermSize=256m", "-Xmx512M", "-Xss2M"),
+    CrossBuilding.crossSbtVersions := Seq("0.12", "0.13")
+  ).settings(net.virtualvoid.sbt.cross.CrossPlugin.crossBuildingSettings: _*)
 
 }
