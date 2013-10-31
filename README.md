@@ -1,7 +1,7 @@
 play2-typescript
 ===========
 
-[TypeScript] [1] asset handling for [Play 2.2.0] [2], implemented as an [sbt] [3]
+[TypeScript] [1] asset handling for [Play 2.1.x and 2.2.x] [2], implemented as an [sbt] [3]
 plugin (very similar to Play's handling of CoffeeScript and LESS).
 
 Prerequisites
@@ -15,6 +15,7 @@ Recommended way to install it in your system is, with node.js and npm installed,
 
 You really should put `-g` option, thereby installing not only the module, but also the executable.
 
+Using version 0.9.1.1 of `tsc` is highly recommended.
 If you already have an installation of `tsc` but have forgotten its version, run:
 
     tsc --version
@@ -28,13 +29,12 @@ Installation
 
 In your Play application folder, add
 
-    resolvers += "Sonatype OSS Snapshots Repository" at "http://oss.sonatype.org/content/groups/public"
-
-    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.2-RC7-SNAPSHOT")
+    addSbtPlugin("com.github.mumoshu" % "play2-typescript" % "0.3.0-RC1")
 
 to `project/plugins.sbt`.
 
 The plugin automatically registers for compilation of `app/assets/**/*.ts`, that is all typescript files in your `app/assets` directory.
+If you are confused about how the *.ts files are placed exactly, take a look at example Play2 projects under `src/sbt-test`.
 
 Integrated with RequireJS by default
 ------------------------------------
